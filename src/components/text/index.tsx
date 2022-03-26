@@ -1,13 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import type { FC } from 'react';
+import type { TextProps } from 'react-native-ui-lib';
 
-const AppText: FC = () => {
-  return (
-    <View>
-      <Text>AppText</Text>
-    </View>
-  );
+import { CustomText } from './styles';
+
+const AppText: FC<TextProps> = ({ children, ...props }) => {
+  return <CustomText {...props}>{children}</CustomText>;
 };
 
 export default AppText;
