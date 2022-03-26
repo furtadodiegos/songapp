@@ -20,6 +20,7 @@ module.exports = {
     'react/function-component-definition': 'off',
     'import/no-unresolved': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
+    'react/jsx-props-no-spreading': 'off',
 
     'simple-import-sort/exports': 'error',
     'simple-import-sort/imports': [

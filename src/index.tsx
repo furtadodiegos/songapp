@@ -1,32 +1,28 @@
 /* eslint-disable no-console */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import RNBootSplash from 'react-native-bootsplash';
+import { ThemeProvider } from 'styled-components/native';
 import type { FC } from 'react';
 
+import { AppText } from './components';
+import { useIsMountedRef } from './hooks';
 import { auth0 } from './services';
+import { darkTheme, lightTheme, palette } from './theme';
 
 const App: FC = () => {
   const [accessToken, setaccessToken] = useState('');
 
   const isDarkMode = useColorScheme() === 'dark';
+  const isReady = useIsMountedRef();
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? palette.black : palette.white,
   };
 
   useEffect(() => {
-    const init = async () => {
-      setTimeout(() => {
-        // …do multiple sync or async tasks
-      }, 1000);
-    };
-
-    init().finally(async () => {
-      await RNBootSplash.hide({ fade: true });
-    });
-  }, []);
+    if (isReady) RNBootSplash.hide({ fade: true });
+  }, [isReady]);
 
   const login = useCallback(() => {
     auth0.webAuth
@@ -52,25 +48,25 @@ const App: FC = () => {
   }, []);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
 
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
-        <View>
-          <Text>OLAx</Text>
-        </View>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+          <AppText>OLAx</AppText>
 
-        <TouchableOpacity onPress={login}>
-          <Text>Login</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={login}>
+            <Text>Login</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={logout}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={logout}>
+            <Text>Logout</Text>
+          </TouchableOpacity>
 
-        <Text>{accessToken}</Text>
-      </ScrollView>
-    </SafeAreaView>
+          <Text>{accessToken}</Text>
+        </ScrollView>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 };
 
