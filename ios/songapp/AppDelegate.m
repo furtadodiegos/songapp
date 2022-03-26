@@ -4,6 +4,14 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import "RNBootSplash.h" 
+
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+
+#import <React/RCTLinkingManager.h>
+
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -24,6 +32,12 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 
 @implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+  return [RCTLinkingManager application:app openURL:url options:options];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -47,6 +61,13 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  // Appcenter
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView]; 
+
   return YES;
 }
 

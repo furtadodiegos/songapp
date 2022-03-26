@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   AppCenter-Config.plist
+   songapp
+
+   Created by diego furtado on 26/03/22.
+   Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+  <dict>
+    <key>AppSecret</key>
+    <string>947dffa0-25ca-4637-865d-d28dead0a4a6</string>
+  </dict>
+</plist>
