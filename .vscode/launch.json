@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "name": "http://localhost:8081/debugger-ui",
+      "request": "launch",
+      "url": "http://localhost:8081/debugger-ui"
+    }
+  ]
+}
